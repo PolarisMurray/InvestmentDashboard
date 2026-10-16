@@ -1,0 +1,17 @@
+.DS_Store
+
+# Personal portfolio data and source evidence stay on this computer.
+/资产看板.html
+/最新持仓照片/
+/outputs/
+/asset-dashboard/src/local-data.ts
+/asset-dashboard/snapshots/
+/asset-dashboard/preview-background.png
+/asset-dashboard/macos-app/build/
+/asset-dashboard/.openai/hosting.json
+
+# Local build and dependency output.
+/asset-dashboard/dist/
+/asset-dashboard/node_modules/
+/asset-dashboard/.sites-runtime/
+/asset-dashboard/src/local-market-data.ts

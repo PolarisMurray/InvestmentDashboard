@@ -1,0 +1,13 @@
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+await mkdir('dist', { recursive: true });
+await copyFile('index.html', 'dist/index.html');
+await copyFile('src/style.css', 'dist/assets/style.css');
+const html = await readFile('index.html', 'utf8');
+const css = (await readFile('src/style.css', 'utf8')).replace(/^@import[^;]+;\s*/, '');
+const local = (await readFile('dist/assets/local-data.js', 'utf8')).replace(/^export /gm, '').replace(/^\/\/# sourceMappingURL=.*$/gm, '');
+const model = (await readFile('dist/assets/model.js', 'utf8')).replace(/^export /gm, '').replace(/^\/\/# sourceMappingURL=.*$/gm, '');
+const market = (await readFile('dist/assets/local-market-data.js', 'utf8')).replace(/^export /gm, '').replace(/^\/\/# sourceMappingURL=.*$/gm, '');
+const main = (await readFile('dist/assets/main.js', 'utf8')).replace(/^import .*;\s*/gm, '').replace(/^\/\/# sourceMappingURL=.*$/gm, '');
+const fallback = `catch (error) { document.getElementById('app').innerHTML = '<main style="max-width:680px;margin:80px auto;padding:32px;font-family:-apple-system,sans-serif"><h1>页面没有成功加载</h1><p style="line-height:1.8;color:#667085">请使用最新版 Safari、Chrome 或 Edge 重新打开此文件。资产数据仍保存在文件中。</p></main>'; console.error(error); }`;
+await writeFile('dist/standalone.html', html.replace('<link rel="stylesheet" href="/assets/style.css" />', `<style>${css}</style>`).replace('<script type="module" src="/assets/main.js"></script>', `<script>try {\n${local}\n${model}\n${market}\n${main}\n} ${fallback}</script>`));
+console.log('Built static TypeScript application in dist/');

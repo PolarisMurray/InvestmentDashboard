@@ -1,0 +1,13 @@
+{
+  "name": "long-view-assets",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-local-data": "node scripts/prepare-local-data.mjs",
+    "build": "npm run prepare-local-data && tsc -p tsconfig.json && node scripts/build.mjs",
+    "dev": "npm run build && node scripts/serve.mjs",
+    "test": "npm run prepare-local-data && tsc -p tsconfig.json && node --test tests/model.test.mjs"
+  },
+  "devDependencies": { "typescript": "5.9.3" }
+}

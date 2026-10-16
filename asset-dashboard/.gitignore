@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.sites-runtime/
+.DS_Store
+*.tgz
+src/local-data.ts
+snapshots/
+preview-background.png
+macos-app/build/
+.openai/hosting.json
+src/local-market-data.ts
